@@ -1,24 +1,75 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+import { Navbar } from "@/components/site/Navbar";
+import { Hero } from "@/components/site/Hero";
+import { Featured } from "@/components/site/Featured";
+import { MenuSection } from "@/components/site/MenuSection";
+import { About } from "@/components/site/About";
+import { Gallery } from "@/components/site/Gallery";
+import { AppetiteCta } from "@/components/site/AppetiteCta";
+import { LocationSection } from "@/components/site/LocationSection";
+import { Contact } from "@/components/site/Contact";
+import { Footer } from "@/components/site/Footer";
+import { WhatsAppFab } from "@/components/site/WhatsAppFab";
+import { site, toInternational } from "@/data/site";
+
+const title = "Mirchi Point Hyderabad | Fast Food, BBQ & Rolls on Jail Rd";
+const description =
+  "Mirchi Point Hyderabad — spicy fast food, BBQ, rolls and Chinese at C929+7FX, Jail Rd, Heerabad. See the full menu with PKR prices and order on WhatsApp.";
+
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "restaurant" },
+      { property: "og:url", content: "/" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [{ rel: "canonical", href: "/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Restaurant",
+          name: site.name,
+          description,
+          servesCuisine: ["Pakistani", "Fast Food", "BBQ", "Chinese"],
+          priceRange: "PKR",
+          telephone: `+${toInternational(site.phones[0])}`,
+          sameAs: [site.facebook],
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "C929+7FX, Jail Rd, Heerabad",
+            addressLocality: "Hyderabad",
+            addressCountry: "PK",
+          },
+        }),
+      },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen overflow-x-hidden bg-background text-foreground">
+      <Navbar />
+      <main id="home">
+        <Hero />
+        <Featured />
+        <MenuSection />
+        <About />
+        <Gallery />
+        <AppetiteCta />
+        <LocationSection />
+        <Contact />
+      </main>
+      <Footer />
+      <WhatsAppFab />
     </div>
   );
 }
