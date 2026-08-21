@@ -6,7 +6,7 @@ import { Reveal } from "./Reveal";
 import { SearchIcon, WhatsAppIcon } from "./Icons";
 
 export function MenuSection({ heading = "The Menu" }: { heading?: string }) {
-  const [active, setActive] = useState<string>(menu[0].id);
+  const [active, setActive] = useState<string>(menu[0]?.id ?? "");
   const [query, setQuery] = useState("");
 
   const trimmed = query.trim().toLowerCase();
