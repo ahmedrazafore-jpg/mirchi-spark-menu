@@ -57,6 +57,19 @@ export function Navbar() {
         </ul>
 
         <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setCartOpen(true)}
+            aria-label={`Open cart (${count} items)`}
+            className="relative inline-flex h-10 w-10 items-center justify-center rounded-md border border-border text-foreground transition-colors hover:border-primary hover:text-primary"
+          >
+            <CartIcon className="h-5 w-5" />
+            {count > 0 ? (
+              <span className="absolute -right-1.5 -top-1.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-[0.6rem] font-bold text-primary-foreground">
+                {count}
+              </span>
+            ) : null}
+          </button>
           <ActionButton
             href={whatsappHref(orderMessage())}
             external
@@ -66,6 +79,7 @@ export function Navbar() {
           >
             Order Now
           </ActionButton>
+
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
