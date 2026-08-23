@@ -11,6 +11,8 @@ import { LocationSection } from "@/components/site/LocationSection";
 import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFab } from "@/components/site/WhatsAppFab";
+import { CartDrawer } from "@/components/site/CartDrawer";
+import { CartProvider } from "@/context/cart";
 import { site, toInternational } from "@/data/site";
 
 const title = "Mirchi Point Hyderabad | Fast Food, BBQ & Rolls on Jail Rd";
@@ -56,20 +58,23 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="min-h-screen overflow-x-hidden bg-background text-foreground">
-      <Navbar />
-      <main id="home">
-        <Hero />
-        <Featured />
-        <MenuSection />
-        <About />
-        <Gallery />
-        <AppetiteCta />
-        <LocationSection />
-        <Contact />
-      </main>
-      <Footer />
-      <WhatsAppFab />
-    </div>
+    <CartProvider>
+      <div className="min-h-screen overflow-x-hidden bg-background text-foreground">
+        <Navbar />
+        <main id="home">
+          <Hero />
+          <Featured />
+          <MenuSection />
+          <About />
+          <Gallery />
+          <AppetiteCta />
+          <LocationSection />
+          <Contact />
+        </main>
+        <Footer />
+        <WhatsAppFab />
+        <CartDrawer />
+      </div>
+    </CartProvider>
   );
 }

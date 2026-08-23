@@ -3,11 +3,13 @@ import { cn } from "@/lib/utils";
 import { navLinks, orderMessage, whatsappHref } from "@/data/site";
 import { Logo } from "./Logo";
 import { ActionButton } from "./ActionButton";
-import { CloseIcon, MenuIcon, WhatsAppIcon } from "./Icons";
+import { CartIcon, CloseIcon, MenuIcon, WhatsAppIcon } from "./Icons";
+import { useCart } from "@/context/cart";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { count, setOpen: setCartOpen } = useCart();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
